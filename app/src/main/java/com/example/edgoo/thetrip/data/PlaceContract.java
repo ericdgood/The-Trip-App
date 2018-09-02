@@ -25,8 +25,8 @@ public class PlaceContract {
                 PlaceContract.PlaceEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 PlaceContract.PlaceEntry.COLUMN_PLACENAME + " TEXT NOT NULL," +
                 PlaceContract.PlaceEntry.COLUMN_ADDRESS + " TEXT NOT NULL," +
-                PlaceContract.PlaceEntry.COLUMN_START + " INTEGER NOT NULL DEFAULT 0," +
-                PlaceContract.PlaceEntry.COLUMN_END + " INTEGER NOT NULL DEFAULT 0," +
+                PlaceContract.PlaceEntry.COLUMN_START + " TEXT NOT NULL," +
+                PlaceContract.PlaceEntry.COLUMN_END + " TEXT NOT NULL," +
                 PlaceContract.PlaceEntry.COLUMN_CHECKLIST + " TEXT NOT NULL," +
                 PlaceEntry.COLUMN_IMAGE + " TEXT NOT NULL" + ");";
     }

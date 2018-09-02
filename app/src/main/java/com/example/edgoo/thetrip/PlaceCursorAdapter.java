@@ -35,8 +35,8 @@ public class PlaceCursorAdapter extends CursorAdapter {
         ImageView image = (ImageView) view.findViewById(R.id.image_view);
 
         String name = cursor.getString(cursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_PLACENAME));
-        final int startT = cursor.getInt(cursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_START));
-        final int endT = cursor.getInt(cursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_END));
+        String startT = cursor.getString(cursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_START));
+        String endT = cursor.getString(cursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_END));
 
         image.setImageURI(Uri.parse(cursor.getString(cursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_IMAGE))));
 

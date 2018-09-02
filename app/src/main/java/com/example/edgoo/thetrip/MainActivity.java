@@ -17,9 +17,9 @@ import com.example.edgoo.thetrip.data.PlaceItem;
 public class MainActivity extends AppCompatActivity {
 
     private final static String LOG_TAG = MainActivity.class.getCanonicalName();
-    PlaceDbHelper dbHelper;
-    PlaceCursorAdapter adapter;
-    int lastVisibleItem = 0;
+    private PlaceDbHelper dbHelper;
+    private PlaceCursorAdapter adapter;
+    private int lastVisibleItem = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +105,8 @@ public class MainActivity extends AppCompatActivity {
         PlaceItem gummibears = new PlaceItem(
                 "Burnt Lake Trail",
                 "7802 Richwood dr Orlando FL 32825",
-                800,
-                1200,
+                "8:00",
+                "12:00",
                 "hat, sun, misc",
                 "android.resource://com.example.edgoo.thetrip/drawable/logo");
         dbHelper.insertItem(gummibears);

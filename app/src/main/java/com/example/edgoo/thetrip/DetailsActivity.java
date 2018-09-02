@@ -24,8 +24,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.example.edgoo.thetrip.data.PlaceDbHelper;
 import com.example.edgoo.thetrip.data.PlaceContract;
+import com.example.edgoo.thetrip.data.PlaceDbHelper;
 import com.example.edgoo.thetrip.data.PlaceItem;
 
 
@@ -210,8 +210,8 @@ public class DetailsActivity extends AppCompatActivity {
             PlaceItem item = new PlaceItem(
                     nameEdit.getText().toString().trim(),
                     priceEdit.getText().toString().trim(),
-                    Integer.parseInt(quantityEdit.getText().toString().trim()),
-                    Integer.parseInt(supplierNameEdit.getText().toString().trim()),
+                    quantityEdit.getText().toString().trim(),
+                    supplierNameEdit.getText().toString().trim(),
                     supplierPhoneEdit.getText().toString().trim(),
                     actualUri.toString());
             dbHelper.insertItem(item);

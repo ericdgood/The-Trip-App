@@ -5,12 +5,12 @@ public class PlaceItem {
 
     private final String placeName;
     private final String address;
-    private final int start;
-    private final int end;
+    private final String start;
+    private final String end;
     private final String checkList;
     private final String image;
 
-    public PlaceItem(String placeName, String address, int start, int end, String checkList, String image) {
+    public PlaceItem(String placeName, String address, String start, String end, String checkList, String image) {
         this.placeName = placeName;
         this.address = address;
         this.start = start;
@@ -27,11 +27,11 @@ public class PlaceItem {
         return address;
     }
 
-    public int getStartTime() {
+    public String getStartTime() {
         return start;
     }
 
-    public int getEndTime() {
+    public String getEndTime() {
         return end;
     }
 
