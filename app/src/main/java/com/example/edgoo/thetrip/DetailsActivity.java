@@ -215,8 +215,7 @@ public class DetailsActivity extends AppCompatActivity {
             String start = quantityEdit.getText().toString().trim();
             String end = supplierNameEdit.getText().toString().trim();
             String check = supplierPhoneEdit.getText().toString().trim();
-            String image = actualUri.toString().trim();
-            dbHelper.updateItem(currentItemId, name, address, start, end, check, image);
+                dbHelper.updateItem(currentItemId, name, address, start, end, check);
         }
         return true;
     }

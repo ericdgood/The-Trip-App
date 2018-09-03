@@ -86,7 +86,7 @@ public class PlaceDbHelper extends SQLiteOpenHelper {
         );
         return cursor;
     }
-    public void updateItem(long currentItemId, String name, String address, String start, String end, String check, String image) {
+    public void updateItem(long currentItemId, String name, String address, String start, String end, String check) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(PlaceContract.PlaceEntry.COLUMN_PLACENAME, name);
@@ -94,7 +94,6 @@ public class PlaceDbHelper extends SQLiteOpenHelper {
         values.put(PlaceContract.PlaceEntry.COLUMN_END, end);
         values.put(PlaceContract.PlaceEntry.COLUMN_ADDRESS, address);
         values.put(PlaceContract.PlaceEntry.COLUMN_CHECKLIST, check);
-        values.put(PlaceContract.PlaceEntry.COLUMN_IMAGE, image);
         String selection = PlaceContract.PlaceEntry._ID + "=?";
         String[] selectionArgs = new String[] { String.valueOf(currentItemId) };
         db.update(PlaceContract.PlaceEntry.TABLE_NAME,
