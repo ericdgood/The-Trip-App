@@ -1,9 +1,13 @@
 package com.example.edgoo.thetrip;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +15,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
+import com.example.edgoo.thetrip.data.PlaceContract;
 import com.example.edgoo.thetrip.data.PlaceDbHelper;
 import com.example.edgoo.thetrip.data.PlaceItem;
 
@@ -19,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private final static String LOG_TAG = MainActivity.class.getCanonicalName();
     private PlaceDbHelper dbHelper;
     private PlaceCursorAdapter adapter;
+    long currentItemId;
     private int lastVisibleItem = 0;
 
     @Override
@@ -76,14 +82,29 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void clickOnSale(long id, int quantity) {
-        dbHelper.sellOneItem(id, quantity);
-        adapter.swapCursor(dbHelper.readStock());
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+//    @Override
+//    public boolean onPrepareOptionsMenu(Menu menu) {
+//        super.onPrepareOptionsMenu(menu);
+//        if (currentItemId == 0) {
+//            MenuItem deleteOneItemMenuItem = menu.findItem(R.id.action_delete_item);
+//            MenuItem orderMenuItem = menu.findItem(R.id.action_order);
+//        }
+//        return true;
+//    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+            MenuItem dummyData = menu.findItem(R.id.action_add_dummy_data);
+            MenuItem deleteAllMenuItem = menu.findItem(R.id.action_delete_all_data);
+            dummyData.setVisible(true);
+            deleteAllMenuItem.setVisible(true);
         return true;
     }
 
@@ -94,13 +115,40 @@ public class MainActivity extends AppCompatActivity {
                 // add dummy data for testing
                 addDummyData();
                 adapter.swapCursor(dbHelper.readStock());
+                return true;
+            case R.id.action_delete_all_data:
+                //delete all data
+                showDeleteConfirmationDialog();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Add data for demo purposes
-     */
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_message);
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                    deleteAllRowsFromTable();
+                finish();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private int deleteAllRowsFromTable() {
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
+        return database.delete(PlaceContract.PlaceEntry.TABLE_NAME, null, null);
+    }
+
     private void addDummyData() {
         PlaceItem gummibears = new PlaceItem(
                 "Burnt Lake Trail",

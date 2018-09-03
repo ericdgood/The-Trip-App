@@ -15,12 +15,12 @@
         <string name="action_save">Save item</string>
         <string name="editor_activity_title_new_item">Add new item</string>
         <string name="editor_activity_title_edit_item">Edit item</string>
-        <string name="menu_order_item">Order more</string>
+        <string name="menu_goto_place">Google maps</string>
         <string name="menu_delete_item">Delete item</string>
         <string name="menu_delete_all_data">Delete all data</string>
-        <string name="phone">Phone</string>
+        <string name="maps">Go to maps</string>
         <string name="email">E-mail</string>
-        <string name="order_message">You can place an order for this item by phone or e-mail</string>
+        <string name="maps_message">This will show you location in Google Maps</string>
         <string name="delete_message">Are you sure you want to procede with the deletion?</string>
         <string name="delete">Accept</string>
         <string name="cancel">Cancel</string>

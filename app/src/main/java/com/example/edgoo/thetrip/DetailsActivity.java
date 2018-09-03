@@ -28,6 +28,8 @@ import com.example.edgoo.thetrip.data.PlaceContract;
 import com.example.edgoo.thetrip.data.PlaceDbHelper;
 import com.example.edgoo.thetrip.data.PlaceItem;
 
+import java.util.Locale;
+
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -129,10 +131,8 @@ public class DetailsActivity extends AppCompatActivity {
         super.onPrepareOptionsMenu(menu);
         if (currentItemId == 0) {
             MenuItem deleteOneItemMenuItem = menu.findItem(R.id.action_delete_item);
-            MenuItem deleteAllMenuItem = menu.findItem(R.id.action_delete_all_data);
             MenuItem orderMenuItem = menu.findItem(R.id.action_order);
             deleteOneItemMenuItem.setVisible(false);
-            deleteAllMenuItem.setVisible(false);
             orderMenuItem.setVisible(false);
         }
         return true;
@@ -172,10 +172,6 @@ public class DetailsActivity extends AppCompatActivity {
             case R.id.action_delete_item:
                 // delete one item
                 showDeleteConfirmationDialog(currentItemId);
-                return true;
-            case R.id.action_delete_all_data:
-                //delete all data
-                showDeleteConfirmationDialog(0);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -250,22 +246,17 @@ public class DetailsActivity extends AppCompatActivity {
 
     private void showOrderConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.order_message);
-        builder.setPositiveButton(R.string.phone, new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.maps_message);
+        builder.setPositiveButton(R.string.maps, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // intent to phone
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + supplierPhoneEdit.getText().toString().trim()));
+                String map = "http://maps.google.co.in/maps?q=" + (priceEdit.getText().toString().trim());
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
                 startActivity(intent);
             }
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-    }
-
-    private int deleteAllRowsFromTable() {
-        SQLiteDatabase database = dbHelper.getWritableDatabase();
-        return database.delete(PlaceContract.PlaceEntry.TABLE_NAME, null, null);
     }
 
     private int deleteOneItemFromTable(long itemId) {
@@ -282,11 +273,7 @@ public class DetailsActivity extends AppCompatActivity {
         builder.setMessage(R.string.delete_message);
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                if (itemId == 0) {
-                    deleteAllRowsFromTable();
-                } else {
                     deleteOneItemFromTable(itemId);
-                }
                 finish();
             }
         });
@@ -312,7 +299,7 @@ public class DetailsActivity extends AppCompatActivity {
         }
         openImageSelector();
     }
-
+//      OPENS GALLERY
     private void openImageSelector() {
         Intent intent;
         if (Build.VERSION.SDK_INT < 19) {
@@ -325,6 +312,7 @@ public class DetailsActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
+//    ASK FOR PERMISSION TO OPEN GALLERY
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
