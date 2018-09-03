@@ -86,27 +86,19 @@ public class PlaceDbHelper extends SQLiteOpenHelper {
         );
         return cursor;
     }
-    public void updateItem(long currentItemId, int quantity) {
+    public void updateItem(long currentItemId, String name, String address, String start, String end, String check, String image) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(PlaceContract.PlaceEntry.COLUMN_START, quantity);
+        values.put(PlaceContract.PlaceEntry.COLUMN_PLACENAME, name);
+        values.put(PlaceContract.PlaceEntry.COLUMN_START, start);
+        values.put(PlaceContract.PlaceEntry.COLUMN_END, end);
+        values.put(PlaceContract.PlaceEntry.COLUMN_ADDRESS, address);
+        values.put(PlaceContract.PlaceEntry.COLUMN_CHECKLIST, check);
+        values.put(PlaceContract.PlaceEntry.COLUMN_IMAGE, image);
         String selection = PlaceContract.PlaceEntry._ID + "=?";
         String[] selectionArgs = new String[] { String.valueOf(currentItemId) };
         db.update(PlaceContract.PlaceEntry.TABLE_NAME,
                 values, selection, selectionArgs);
     }
 
-    public void sellOneItem(long itemId, int quantity) {
-        SQLiteDatabase db = getWritableDatabase();
-        int newQuantity = 0;
-        if (quantity > 0) {
-            newQuantity = quantity -1;
-        }
-        ContentValues values = new ContentValues();
-        values.put(PlaceContract.PlaceEntry.COLUMN_START, newQuantity);
-        String selection = PlaceContract.PlaceEntry._ID + "=?";
-        String[] selectionArgs = new String[] { String.valueOf(itemId) };
-        db.update(PlaceContract.PlaceEntry.TABLE_NAME,
-                values, selection, selectionArgs);
-    }
 }

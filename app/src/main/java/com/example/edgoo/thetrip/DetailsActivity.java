@@ -42,8 +42,6 @@ public class DetailsActivity extends AppCompatActivity {
     EditText supplierNameEdit;
     EditText supplierPhoneEdit;
     long currentItemId;
-    ImageButton decreaseQuantity;
-    ImageButton increaseQuantity;
     Button imageBtn;
     ImageView imageView;
     Uri actualUri;
@@ -212,8 +210,13 @@ public class DetailsActivity extends AppCompatActivity {
                     actualUri.toString());
             dbHelper.insertItem(item);
         } else {
-            int quantity = Integer.parseInt(quantityEdit.getText().toString().trim());
-            dbHelper.updateItem(currentItemId, quantity);
+            String name = nameEdit.getText().toString().trim();
+            String address = priceEdit.getText().toString().trim();
+            String start = quantityEdit.getText().toString().trim();
+            String end = supplierNameEdit.getText().toString().trim();
+            String check = supplierPhoneEdit.getText().toString().trim();
+            String image = actualUri.toString().trim();
+            dbHelper.updateItem(currentItemId, name, address, start, end, check, image);
         }
         return true;
     }
@@ -237,11 +240,6 @@ public class DetailsActivity extends AppCompatActivity {
         supplierNameEdit.setText(cursor.getString(cursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_END)));
         supplierPhoneEdit.setText(cursor.getString(cursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_CHECKLIST)));
         imageView.setImageURI(Uri.parse(cursor.getString(cursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_IMAGE))));
-        nameEdit.setEnabled(false);
-        priceEdit.setEnabled(false);
-        supplierNameEdit.setEnabled(false);
-        supplierPhoneEdit.setEnabled(false);
-        imageBtn.setEnabled(false);
     }
 
     private void showOrderConfirmationDialog() {
