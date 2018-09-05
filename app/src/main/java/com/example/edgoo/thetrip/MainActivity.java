@@ -9,11 +9,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.edgoo.thetrip.data.PlaceContract;
 import com.example.edgoo.thetrip.data.PlaceDbHelper;
@@ -87,16 +90,6 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu) {
-//        super.onPrepareOptionsMenu(menu);
-//        if (currentItemId == 0) {
-//            MenuItem deleteOneItemMenuItem = menu.findItem(R.id.action_delete_item);
-//            MenuItem orderMenuItem = menu.findItem(R.id.action_order);
-//        }
-//        return true;
-//    }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
